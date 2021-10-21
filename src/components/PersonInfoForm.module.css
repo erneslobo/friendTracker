@@ -1,0 +1,7 @@
+.infoForm > input,
+.infoForm > textarea,
+.infoForm > button {
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    width: 100%;
+}

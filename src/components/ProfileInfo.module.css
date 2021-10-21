@@ -1,0 +1,31 @@
+h3 {
+    border-bottom: 1px dotted #ccc;
+}
+
+.profilePicContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.profilePicWrap {
+    width: 256px;
+    height: 256px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: black;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.profilePic {
+    width: 100%;
+}
+
+.detailHeading{
+    border-bottom: 1px, dotted #ccc;
+}
+
+.actionButton {
+    margin-top: 16px;
+    width: 100%;
+}

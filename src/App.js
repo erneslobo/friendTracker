@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { EditFriendPage } from "./pages/EditFriendPage";
+import { FriendDetailPage } from './pages/FriendDetailPage';
+import { FriendsPage } from './pages/FriendsPage';
+import { NewFriendPage } from './pages/NewFriendPage';
+import { UserProfilePage } from './pages/UserProfilePage';
+import { FavoritesProvider } from './components/FavoritesProvider'
+import { FriendsProvider } from './components/FriendsProvider';
+import { NavBar } from './components/NavBar';
+import styles from './App.module.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export const App = () => {
+    return (
+        <BrowserRouter>
+            <NavBar />
+            <FavoritesProvider>
+                <FriendsProvider>
+                    <div className={styles.contentContainer}>
+                        <Route path="/" exact>
+                            <FriendsPage>
+                                <h1>Hello!</h1>
+                            </FriendsPage>
+                        </Route>
+                        <Route path="/friends/:friendId">
+                            <FriendDetailPage />
+                        </Route>
+                        <Route path="/edit/:friendId">
+                            <EditFriendPage />
+                        </Route>
+                        <Route path="/user-profile">
+                            <UserProfilePage />
+                        </Route>
+                        <Route path="/new-friend">
+                            <NewFriendPage />
+                        </Route>
+                    </div>
+                </FriendsProvider>
+            </FavoritesProvider>
+        </BrowserRouter>
+    );
 }
 
-export default App;
