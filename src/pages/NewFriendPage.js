@@ -1,20 +1,20 @@
-import { useContext } from "react";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { PersonInfoForm } from "../components/PersonInfoForm";
-import { FriendsContext } from "../context/FriendsContext";
+import { addFriend } from "../actions/friends";
 
 
 const NewFriendPage = () => {
-    const { addFriend } = useContext(FriendsContext);
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const onFormSubmit = friendInfo => {
         const newFriend = {
             ...friendInfo,
             id: uuid(),
         }
-        addFriend(newFriend);
+        dispatch(addFriend(newFriend));
         history.push("/");
     }
 

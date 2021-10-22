@@ -1,16 +1,25 @@
-import { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useParams, Link, useHistory } from "react-router-dom"
-import { FavoritesContext } from "../context/FavoritesContext";
-import { FriendsContext } from "../context/FriendsContext";
 import { ProfileInfo } from "../components/ProfileInfo";
+import { addFavorite, removeFavorite } from "../actions/favorites"
 
 const FriendDetailPage = () => {
     const history = useHistory();
-    const { favoriteIds, toggleFavorite } = useContext(FavoritesContext);
-    const { friends } = useContext(FriendsContext);
+    const dispatch = useDispatch();
+
     const { friendId } = useParams();
-    const selectedFriend = friends.find(friend => friend.id === friendId);
-    const isFavorite = favoriteIds.includes(friendId);
+
+    const selectedFriend = useSelector(state => state.friends.find(friend => friend.id === friendId));
+    const isFavorite = useSelector(state => state.favorites.includes(friendId));
+
+    const toggleFavorite = friendId => {
+        if (isFavorite) {
+            dispatch(removeFavorite(friendId));
+        } else {
+            dispatch(addFavorite(friendId));
+        }
+    }
+
     const pageActions = [{
         actionName: isFavorite ? 'Remove from Favorites' : "Add to Favorites",
         handler: () => toggleFavorite(friendId)

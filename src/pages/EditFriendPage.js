@@ -1,20 +1,18 @@
-import { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
-import { FriendsContext } from "../context/FriendsContext";
 import { PersonInfoForm } from "../components/PersonInfoForm";
+import { editFriend } from "../actions/friends"
 
 const EditFriendPage = () => {
     const { friendId } = useParams();
-    const { friends, updateFriend } = useContext(FriendsContext);
+    const friends = useSelector(state => state.friends);
     const selectedFriend = friends.find(f => f.id === friendId);
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    const saveUpdatedInformation = updateInfo => {
-        updateFriend({
-            ...updateInfo,
-            id: friendId
-        });
-        history.push('/');
+    const saveUpdatedInformation = updatedInfo => {
+        dispatch(editFriend(friendId, updatedInfo))
+        history.push("/");
     }
 
     return (
